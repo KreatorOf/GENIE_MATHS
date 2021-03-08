@@ -1,5 +1,5 @@
 """
-Authors : CADET Matthias, FOLY Harold
+Authors : CADET Matthias, LEFEZ Alexis, HERMANN Marilyn
 Date : 28/01/2021
 Professor : MR. BLETZACKER
 """
