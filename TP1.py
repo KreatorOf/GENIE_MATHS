@@ -120,13 +120,12 @@ B = np.array([4,-5,-2,13])
 
 
 # QUESTION 4
-
 TpsG = []
 TpsL = []
 TpsU = []
 length = []
 
-for n in range(2,300,5):
+for n in range(100,1000,100):
     A = np.random.rand(n,n)
     B = np.random.rand(n,1)
 
@@ -148,13 +147,14 @@ for n in range(2,300,5):
 
     length.append(n)
 
+ax.set_yscale('log')
+
 plt.plot(length, TpsG, label = "Gauss")
 plt.plot(length, TpsL, label = "linalg")
 plt.plot(length, TpsU, label = "LU")
-plt.xlabel("n")
+plt.xlabel("Taille de la matrice(n)")
 plt.ylabel("Temps(s)")
 plt.title("Temps d'éxecution en fonction de la taille de la matrice")
 plt.legend()
 plt.show()
-#print(A)
-#print(B)
+
