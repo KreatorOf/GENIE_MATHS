@@ -30,7 +30,7 @@ def zero(A, L1, L2, k):
 def ReductionGauss(Aaug):
          """" 
    Cette fonction renvoie la matrice obtenue après l’application de
-        la méthode de Gauss à A˜.
+   la méthode de Gauss à A˜.
 
      Argument: Aaug: Matrice carrée
 
@@ -78,7 +78,7 @@ def Gauss(A, B):
     Cette fonction renvoie la solution d’un système AX = B (B un vecteur colonne).
 
      Argument:  A: Une matrice carrée
-                    B: Un vecteur colonne
+                B: Un vecteur colonne
 
      Retourne: La solution du système AX = B
 
