@@ -28,6 +28,15 @@ def zero(A, L1, L2, k):
 # QUESTION 1
 
 def ReductionGauss(Aaug):
+         """" 
+   Cette fonction renvoie la matrice obtenue après l’application de
+        la méthode de Gauss à A˜.
+
+     Argument: Aaug: Matrice carrée
+
+     Retourne: Une matrice augmentée de format (n, n + 1)
+    """
+        
     n, m = np.shape(Aaug)
     for i in range(0, n):
         for k in range(i + 1, n):
@@ -42,6 +51,14 @@ def ReductionGauss(Aaug):
 # QUESTION 2
  
 def ResolutionSystTriSup(Taug):
+        """" 
+   Cette fonction renvoie la solution d’un système T X = B, où T est triangulaire supérieure. 
+
+      Argument: Taug: Matrice augmentée de ce système de format (n, n + 1)
+
+      Retourne: La solution du système TX = B
+    """
+        
     n, m = np.shape(Taug)
     x = np.zeros(n)
     x[n - 1] = Taug[n - 1, m - 1]/Taug[n - 1, n - 1]
@@ -57,6 +74,16 @@ def ResolutionSystTriSup(Taug):
 # QUESTION 3
 
 def Gauss(A, B):
+        """" 
+    Cette fonction renvoie la solution d’un système AX = B (B un vecteur colonne).
+
+     Argument:  A: Une matrice carrée
+                    B: Un vecteur colonne
+
+     Retourne: La solution du système AX = B
+
+    """
+        
     n, m = np.shape(A)
     R = np.c_[A, B]
     return ResolutionSystTriSup(ReductionGauss(R))
@@ -73,6 +100,15 @@ print(Gauss(A, B))
 # QUESTION 1
 
 def DecompostionLU(A):
+     """" 
+    Cette fonction renvoie la décomposition LU d’une matrice carrée A.
+
+     Argument: A: Une matrice carrée
+
+     Retourne: La décomposition LU de A
+
+    """
+        
     n, m = np.shape(A)
     L = np.eye(n, m)
     for i in range(0, n):
@@ -97,6 +133,16 @@ print(L.dot(U))
 # QUESTION 2
 
 def ResolutionLU(L, U, B):
+        """
+Cette fonction résoud AX = B avec la décomposition de A = LU fourni en argument.
+
+ Argument: L: Une matrice triangulaire supérieure
+           U: Une matrice triangulaire supérieure
+           B: Un vecteur colonne
+           
+ Retourne: La solution de l'équation AX = B
+     """
+        
     n, m = np.shape(L)
     Y = np.zeros(n)
     X = np.zeros(n)
@@ -175,3 +221,53 @@ plt.ylabel("Erreur relative")
 plt.legend()
 plt.show()
 
+
+# -----------------------Variantes de l’algorithme de Gauss--------------------------
+
+# QUESTION 1
+
+def GaussChoixPivotPartiel(A, B):
+    """
+Cette fonction résoud l'équation AX = B avec le choix du pivot partiel. On utilise des échanges de lignes, pour que le pivot soit choisi de
+plus grand module possible au sein de la colonne.
+
+
+ Argument: A: Une matrice carrée
+           B: Une matrice colonne
+           
+ Retourne: La solution sous la forme d'une matrice colonne
+     """
+
+    nA, mA = A.shape               
+    nB, mB = B.shape
+
+    if nA == mA:                   
+        if mB == 1 and nB == nA:      
+
+            Aaug = np.concatenate((A, B), axis=1)    
+            n, m = Aaug.shape
+
+            for j in range(0, m - 2):
+                LePlusGrand = j               
+
+                for i in range(j, n):
+                    if abs(Aaug[i, j]) > abs(Aaug[LePlusGrand, j]):
+                        LePlusGrand = i
+
+                temporaire = Aaug[j].copy()
+                Aaug[j] = Aaug[LePlusGrand]
+                Aaug[LePlusGrand] = temporaire
+
+
+                for i in range(0, n):
+                    p = Aaug[j, j]
+
+                    if i > j:
+                        g = Aaug[i, j] / p
+                        Aaug[i] = Aaug[i] - g * Aaug[j]
+        else:
+            print("La matrice B doit être une matrice colonne et avoir autant de ligne que la matrice A")
+    else:
+        print("La matrice A doit être une matrice carré")
+
+    return ResolutionSystTriSup(Aaug)
