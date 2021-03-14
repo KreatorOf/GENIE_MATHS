@@ -11,6 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+
 #-----------------------------------------------------------
 #                          FONCTIONS
 #-----------------------------------------------------------
@@ -67,7 +68,6 @@ print(Gauss(A, B))
 
 
 
-
 # -----------------------DECOMPOSITION LU--------------------------
 
 # QUESTION 1
@@ -85,8 +85,8 @@ def DecompostionLU(A):
     return L, A
 
 
-A = np.array([[3,2,-1,4], [-3,-4,4,-2], [6,2,2,7], [9,4,2,18]])
-L, U = DecompostionLU(A)
+# A = np.array([[3,2,-1,4], [-3,-4,4,-2], [6,2,2,7], [9,4,2,18]])
+# L, U = DecompostionLU(A)
 
 """
 print(L)
@@ -113,7 +113,7 @@ def ResolutionLU(L, U, B):
         X[j] = (Y[j] - S) / U[j,j]
     return X
 
-B = np.array([4,-5,-2,13])
+# B = np.array([4,-5,-2,13])
 
 #print(ResolutionLU(L, U, B))
 
@@ -124,37 +124,54 @@ TpsG = []
 TpsL = []
 TpsU = []
 length = []
+ErreurG = []
+ErreurLU = []
+ErreurLin = []
 
 for n in range(100,1000,100):
     A = np.random.rand(n,n)
     B = np.random.rand(n,1)
 
     time_startG = time.time()
-    Gauss(A, B)
+    X1 = Gauss(A, B)
     time_endG = time.time()
     TpsG.append(time_endG - time_startG)
+    Y1 = np.linalg.norm(np.dot(A, X1) - B)
+    ErreurG.append(Y1)
 
     time_startL = time.time()
-    np.linalg.solve(A, B)
+    X2 = np.linalg.solve(A, B)
     time_endL = time.time()
     TpsL.append(time_endL - time_startL)
+    Y2 = np.linalg.norm(np.dot(A, X2) - B)
+    ErreurLin.append(Y2)
 
     time_startU = time.time()
     L, U = DecompostionLU(A)
-    ResolutionLU(L,U,B)
+    X3 = ResolutionLU(L, U, B)
     time_endU = time.time()
     TpsU.append(time_endU - time_startU)
+    Y3 = np.linalg.norm(np.dot(A, X3) - B)
+    ErreurLU.append(Y3)
 
     length.append(n)
 
-ax.set_yscale('log')
-
+plt.figure("Temps d'exécution en fonction de la taille de la matrice")
 plt.plot(length, TpsG, label = "Gauss")
 plt.plot(length, TpsL, label = "linalg")
 plt.plot(length, TpsU, label = "LU")
 plt.xlabel("Taille de la matrice(n)")
 plt.ylabel("Temps(s)")
-plt.title("Temps d'éxecution en fonction de la taille de la matrice")
+plt.title("Temps d'exécution en fonction de la taille de la matrice")
+plt.legend()
+
+plt.figure("Courbe d'erreurs")
+plt.title("Erreur relative en fonction de la taille de la matrice")
+plt.plot(length, ErreurG, label = "Gauss")
+plt.plot(length, ErreurLin, label = "Linalg")
+plt.plot(length, ErreurLU, label = "LU")
+plt.xlabel("Taille de la matrice(n)")
+plt.ylabel("Erreur relative")
 plt.legend()
 plt.show()
 
