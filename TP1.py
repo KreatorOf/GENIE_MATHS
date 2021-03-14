@@ -243,31 +243,30 @@ plus grand module possible au sein de la colonne.
 
     if nA == mA:                   
         if mB == 1 and nB == nA:      
-
             Aaug = np.concatenate((A, B), axis=1)    
             n, m = Aaug.shape
 
             for j in range(0, m - 2):
-                LePlusGrand = j               
+                Max = j               
 
                 for i in range(j, n):
-                    if abs(Aaug[i, j]) > abs(Aaug[LePlusGrand, j]):
-                        LePlusGrand = i
+                    if abs(Aaug[i, j]) > abs(Aaug[Max, j]):
+                        Max = i
 
                 temporaire = Aaug[j].copy()
-                Aaug[j] = Aaug[LePlusGrand]
-                Aaug[LePlusGrand] = temporaire
-
+                Aaug[j] = Aaug[Max]
+                Aaug[Max] = temporaire
 
                 for i in range(0, n):
                     p = Aaug[j, j]
-
+                    
                     if i > j:
                         g = Aaug[i, j] / p
                         Aaug[i] = Aaug[i] - g * Aaug[j]
         else:
-            print("La matrice B doit être une matrice colonne et avoir autant de ligne que la matrice A")
+            print("B doit être une matrice colonne et avoir autant de lignes que A.")
+            
     else:
-        print("La matrice A doit être une matrice carré")
+        print("A doit être une matrice carré.")
 
     return ResolutionSystTriSup(Aaug)
