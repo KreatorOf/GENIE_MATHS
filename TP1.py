@@ -28,7 +28,7 @@ def zero(A, L1, L2, k):
 # QUESTION 1
 
 def ReductionGauss(Aaug):
-         """" 
+    """
    Cette fonction renvoie la matrice obtenue après l’application de
    la méthode de Gauss à A˜.
 
@@ -36,7 +36,7 @@ def ReductionGauss(Aaug):
 
      Retourne: Une matrice augmentée de format (n, n + 1)
     """
-        
+
     n, m = np.shape(Aaug)
     for i in range(0, n):
         for k in range(i + 1, n):
@@ -51,7 +51,7 @@ def ReductionGauss(Aaug):
 # QUESTION 2
  
 def ResolutionSystTriSup(Taug):
-        """" 
+    """
    Cette fonction renvoie la solution d’un système T X = B, où T est triangulaire supérieure. 
 
       Argument: Taug: Matrice augmentée de ce système de format (n, n + 1)
@@ -74,7 +74,7 @@ def ResolutionSystTriSup(Taug):
 # QUESTION 3
 
 def Gauss(A, B):
-        """" 
+    """
     Cette fonction renvoie la solution d’un système AX = B (B un vecteur colonne).
 
      Argument:  A: Une matrice carrée
@@ -100,7 +100,7 @@ print(Gauss(A, B))
 # QUESTION 1
 
 def DecompostionLU(A):
-     """" 
+    """
     Cette fonction renvoie la décomposition LU d’une matrice carrée A.
 
      Argument: A: Une matrice carrée
@@ -133,15 +133,15 @@ print(L.dot(U))
 # QUESTION 2
 
 def ResolutionLU(L, U, B):
-        """
-Cette fonction résoud AX = B avec la décomposition de A = LU fourni en argument.
+    """
+    Cette fonction résoud AX = B avec la décomposition de A = LU fourni en argument.
 
- Argument: L: Une matrice triangulaire supérieure
+    Argument: L: Une matrice triangulaire supérieure
            U: Une matrice triangulaire supérieure
            B: Un vecteur colonne
            
- Retourne: La solution de l'équation AX = B
-     """
+    Retourne: La solution de l'équation AX = B
+    """
         
     n, m = np.shape(L)
     Y = np.zeros(n)
