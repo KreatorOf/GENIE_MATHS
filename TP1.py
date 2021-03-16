@@ -270,3 +270,70 @@ plus grand module possible au sein de la colonne.
         print("A doit être une matrice carré.")
 
     return ResolutionSystTriSup(Aaug)
+
+
+
+
+def GaussChoixPivotTotal(A, B):
+    """
+Cette fonction rend la solution d’un système AX = B avec la méthode de Gauss avec choix de pivot total.
+
+ Argument: A: Une matrice carrée
+           B: Un vecteur colonne
+           
+ Retourne: La solution du système AX = B
+ 
+    """
+    nA, mA = A.shape
+    nB, mB = B.shape
+
+    if nA == mA:
+        if mB == 1 and nB == nA:
+            Aaug = np.concatenate((A, B), axis=1)
+            n, m = Aaug.shape
+
+            historique = [i for i in range(m - 1)]
+
+            for j in range(0, m - 2):
+
+                LePlusGrand = j, j 
+
+                for j2 in range(j, m - 1):
+                    for i2 in range(j, n):
+                        if abs(Aaug[i2, j2]) > abs(Aaug[LePlusGrand]): 
+                            LePlusGrand = i2, j2
+
+ 
+                histo_tempo = historique[j]
+                historique[j] = historique[LePlusGrand[1]]
+                historique[LePlusGrand[1]] = histo_tempo
+
+               
+                temporaire = Aaug[j].copy()
+                Aaug[j] = Aaug[LePlusGrand[0]]
+                Aaug[LePlusGrand[0]] = temporaire
+
+                temporaire = Aaug[:, j].copy()
+                Aaug[:, j] = Aaug[:, LePlusGrand[1]]
+
+                Aaug[:, LePlusGrand[1]] = temporaire
+               
+
+                for i in range(0, n):
+                    p = Aaug[j, j]
+
+                    if i > j:
+                        g = Aaug[i, j] / p
+                        Aaug[i] = Aaug[i] - g * Aaug[j]
+        else:
+            print("La matrice B doit être une matrice colonne et avoir autant de ligne que la matrice A")
+    else:
+        print("La matrice A doit être une matrice carré")
+
+
+    X_desorsonne = ResolutionSystTriSup(Aaug)
+    X_ordonne = [0] * (m - 1)
+    for i in range(len(historique)): 
+        X_ordonne[historique[i]] = X_desorsonne[i]
+
+    return np.array(X_ordonne)
