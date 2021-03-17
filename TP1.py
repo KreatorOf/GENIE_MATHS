@@ -337,3 +337,14 @@ Cette fonction rend la solution d’un système AX = B avec la méthode de Gauss
         X_ordonne[historique[i]] = X_desorsonne[i]
 
     return np.array(X_ordonne)
+
+
+# création du graphique des temps d'exécution des méthodes
+plt.plot(tailles_matrices, temps)  
+    plt.title(fonction.__name__ + "\nTemps d'exécution en fonction de la taille de la matrice")
+    plt.xlabel("Taille de la matrice")
+    plt.ylabel("Temps d'exécution")
+    plt.grid()
+    plt.show()
+ 
+    plt.semilogx(tailles_matrices, erreurs) 
