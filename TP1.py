@@ -163,65 +163,6 @@ def ResolutionLU(L, U, B):
 
 #print(ResolutionLU(L, U, B))
 
-
-
-# QUESTION 4
-TpsG = []
-TpsL = []
-TpsU = []
-length = []
-ErreurG = []
-ErreurLU = []
-ErreurLin = []
-
-for n in range(100,1000,100):
-    A = np.random.rand(n,n)
-    B = np.random.rand(n,1)
-
-    time_startG = time.time()
-    X1 = Gauss(A, B)
-    time_endG = time.time()
-    TpsG.append(time_endG - time_startG)
-    Y1 = np.linalg.norm(np.dot(A, X1) - B)
-    ErreurG.append(Y1)
-
-    time_startL = time.time()
-    X2 = np.linalg.solve(A, B)
-    time_endL = time.time()
-    TpsL.append(time_endL - time_startL)
-    Y2 = np.linalg.norm(np.dot(A, X2) - B)
-    ErreurLin.append(Y2)
-
-    time_startU = time.time()
-    L, U = DecompostionLU(A)
-    X3 = ResolutionLU(L, U, B)
-    time_endU = time.time()
-    TpsU.append(time_endU - time_startU)
-    Y3 = np.linalg.norm(np.dot(A, X3) - B)
-    ErreurLU.append(Y3)
-
-    length.append(n)
-
-plt.figure("Temps d'exécution en fonction de la taille de la matrice")
-plt.plot(length, TpsG, label = "Gauss")
-plt.plot(length, TpsL, label = "linalg")
-plt.plot(length, TpsU, label = "LU")
-plt.xlabel("Taille de la matrice(n)")
-plt.ylabel("Temps(s)")
-plt.title("Temps d'exécution en fonction de la taille de la matrice")
-plt.legend()
-
-plt.figure("Courbe d'erreurs")
-plt.title("Erreur relative en fonction de la taille de la matrice")
-plt.plot(length, ErreurG, label = "Gauss")
-plt.plot(length, ErreurLin, label = "Linalg")
-plt.plot(length, ErreurLU, label = "LU")
-plt.xlabel("Taille de la matrice(n)")
-plt.ylabel("Erreur relative")
-plt.legend()
-plt.show()
-
-
 # -----------------------Variantes de l’algorithme de Gauss--------------------------
 
 # QUESTION 1
@@ -234,20 +175,20 @@ plus grand module possible au sein de la colonne.
 
  Argument: A: Une matrice carrée
            B: Une matrice colonne
-           
+
  Retourne: La solution sous la forme d'une matrice colonne
      """
 
-    nA, mA = A.shape               
+    nA, mA = A.shape
     nB, mB = B.shape
 
-    if nA == mA:                   
-        if mB == 1 and nB == nA:      
-            Aaug = np.concatenate((A, B), axis=1)    
+    if nA == mA:
+        if mB == 1 and nB == nA:
+            Aaug = np.concatenate((A, B), axis=1)
             n, m = Aaug.shape
 
             for j in range(0, m - 2):
-                Max = j               
+                Max = j
 
                 for i in range(j, n):
                     if abs(Aaug[i, j]) > abs(Aaug[Max, j]):
@@ -259,19 +200,17 @@ plus grand module possible au sein de la colonne.
 
                 for i in range(0, n):
                     p = Aaug[j, j]
-                    
+
                     if i > j:
                         g = Aaug[i, j] / p
                         Aaug[i] = Aaug[i] - g * Aaug[j]
         else:
             print("B doit être une matrice colonne et avoir autant de lignes que A.")
-            
+
     else:
         print("A doit être une matrice carré.")
 
     return ResolutionSystTriSup(Aaug)
-
-
 
 
 def GaussChoixPivotTotal(A, B):
@@ -280,9 +219,9 @@ Cette fonction rend la solution d’un système AX = B avec la méthode de Gauss
 
  Argument: A: Une matrice carrée
            B: Un vecteur colonne
-           
+
  Retourne: La solution du système AX = B
- 
+
     """
     nA, mA = A.shape
     nB, mB = B.shape
@@ -296,19 +235,17 @@ Cette fonction rend la solution d’un système AX = B avec la méthode de Gauss
 
             for j in range(0, m - 2):
 
-                LePlusGrand = j, j 
+                LePlusGrand = j, j
 
                 for j2 in range(j, m - 1):
                     for i2 in range(j, n):
-                        if abs(Aaug[i2, j2]) > abs(Aaug[LePlusGrand]): 
+                        if abs(Aaug[i2, j2]) > abs(Aaug[LePlusGrand]):
                             LePlusGrand = i2, j2
 
- 
                 histo_tempo = historique[j]
                 historique[j] = historique[LePlusGrand[1]]
                 historique[LePlusGrand[1]] = histo_tempo
 
-               
                 temporaire = Aaug[j].copy()
                 Aaug[j] = Aaug[LePlusGrand[0]]
                 Aaug[LePlusGrand[0]] = temporaire
@@ -317,7 +254,6 @@ Cette fonction rend la solution d’un système AX = B avec la méthode de Gauss
                 Aaug[:, j] = Aaug[:, LePlusGrand[1]]
 
                 Aaug[:, LePlusGrand[1]] = temporaire
-               
 
                 for i in range(0, n):
                     p = Aaug[j, j]
@@ -330,21 +266,124 @@ Cette fonction rend la solution d’un système AX = B avec la méthode de Gauss
     else:
         print("La matrice A doit être une matrice carré")
 
-
-    X_desorsonne = ResolutionSystTriSup(Aaug)
+    X_desordonne = ResolutionSystTriSup(Aaug)
     X_ordonne = [0] * (m - 1)
-    for i in range(len(historique)): 
-        X_ordonne[historique[i]] = X_desorsonne[i]
+    for i in range(len(historique)):
+        X_ordonne[historique[i]] = X_desordonne[i]
 
     return np.array(X_ordonne)
 
+# QUESTION 4 AFFICHAGE DES GRAPHES
+TpsG = []
+TpsLin = []
+TpsLU = []
+TpsPP = []
+TpsPT = []
 
-# création du graphique des temps d'exécution des méthodes
-plt.plot(tailles_matrices, temps)  
-    plt.title(fonction.__name__ + "\nTemps d'exécution en fonction de la taille de la matrice")
-    plt.xlabel("Taille de la matrice")
-    plt.ylabel("Temps d'exécution")
-    plt.grid()
-    plt.show()
- 
-    plt.semilogx(tailles_matrices, erreurs) 
+length = []
+
+ErreurG = []
+ErreurLin = []
+ErreurLU = []
+ErreurPP = []
+ErreurPT = []
+
+
+for n in range(100, 500, 100):
+    A = np.random.rand(n, n)
+    B = np.random.rand(n, 1)
+
+#Gauss
+
+    time_startG = time.time()
+    X1 = Gauss(A, B)
+    time_endG = time.time()
+    TpsG.append(time_endG - time_startG)
+    Y1 = np.linalg.norm(np.dot(A, X1) - B)/np.linalg.norm(B)
+    ErreurG.append(Y1)
+
+# #Linalg
+#
+#     time_startLin = time.time()
+#     X2 = np.linalg.solve(A, B)
+#     time_endLin = time.time()
+#     TpsLin.append(time_endLin - time_startLin)
+#     Y2 = np.linalg.norm(np.dot(A, X2) - B)/np.linalg.norm(B)
+#     ErreurLin.append(Y2)
+
+#LU
+
+    time_startLU = time.time()
+    L, U = DecompostionLU(A)
+    X3 = ResolutionLU(L, U, B)
+    time_endLU = time.time()
+    TpsLU.append(time_endLU - time_startLU)
+    Y3 = np.linalg.norm(np.dot(A, X3) - B)/np.linalg.norm(B)
+    ErreurLU.append(Y3)
+#
+# #Pivot Partiel
+#
+#     time_startPP = time.time()
+#     X4 = GaussChoixPivotPartiel(A, B)
+#     time_endPP = time.time()
+#     TpsPP.append(time_endPP - time_startPP)
+#     Y4 = np.linalg.norm(np.dot(A, X4) - B)/np.linalg.norm(B)
+#     ErreurPP.append(Y4)
+#
+# #Pivot Total
+#
+#     time_startPT = time.time()
+#     X5 = GaussChoixPivotTotal(A, B)
+#     time_endPT = time.time()
+#     TpsPT.append(time_endPT - time_startPT)
+#     Y5 = np.linalg.norm(np.dot(A, X5) - B)/np.linalg.norm(B)
+#     ErreurPT.append(Y5)
+
+#Taille de la matrice
+
+    length.append(n)
+
+#PLOT
+
+plt.figure("Temps d'exécution en fonction de la taille de la matrice")
+plt.plot(length, TpsG, label = "Gauss")
+# plt.plot(length, TpsLin, label = "Linalg")
+plt.plot(length, TpsLU, label = "LU")
+# plt.plot(length, TpsPP, label = "Pivot Partiel")
+# plt.plot(length, TpsPT, label = "Pivot Total")
+plt.xlabel("Taille de la matrice(n)")
+plt.ylabel("Temps d'execution(s)")
+plt.title("Temps d'exécution en fonction de la taille de la matrice")
+plt.grid()
+plt.legend()
+
+#ERREURS
+
+# plt.figure("Courbe d'erreurs")
+# plt.title("Erreur relative en fonction de la taille de la matrice")
+# plt.plot(length, ErreurG, label = "Gauss")
+# plt.plot(length, ErreurLU, label = "LU")
+# plt.plot(length, ErreurPP, label = "Pivot Partiel")
+# plt.plot(length, ErreurPT, label = "Pivot Total")
+# plt.yscale(u'log')
+# plt.xlabel("Taille de la matrice(n)")
+# plt.ylabel("Erreur relative")
+# plt.grid()
+# plt.legend()
+
+
+#GRAPHES LOLGLOG
+
+# plt.figure("Graphes loglog")
+# plt.loglog(length, TpsG, label = "Gauss")
+# plt.loglog(length, TpsLU, label = "LU")
+# plt.loglog(length, TpsPP, label = "Pivot Partiel")
+# plt.loglog(length, TpsPT, label = "Pivot Total")
+# plt.title("Temps d'exécution en fonction de la taille de la matrice")
+# plt.xlabel("Taille de la matrice(n)")
+# plt.ylabel("Temps d'exécution(s)")
+# plt.grid()
+# plt.legend()
+plt.show()
+
+
