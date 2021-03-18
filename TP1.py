@@ -263,9 +263,10 @@ ErreurLU = []
 ErreurPP = []
 ErreurPT = []
 
-for n in range(100, 500, 100):
+for n in range(100, 1000, 100):
     A = np.random.rand(n, n)
     B = np.random.rand(n, 1)
+
 
     # Gauss
 
@@ -273,7 +274,7 @@ for n in range(100, 500, 100):
     X1 = Gauss(A, B)
     time_endG = time.time()
     TpsG.append(time_endG - time_startG)
-    Y1 = np.linalg.norm(np.dot(A, X1) - B) / np.linalg.norm(B)
+    Y1 = np.linalg.norm(np.dot(A, X1) - B)
     ErreurG.append(Y1)
 
     # Linalg
@@ -282,7 +283,7 @@ for n in range(100, 500, 100):
     X2 = np.linalg.solve(A, B)
     time_endLin = time.time()
     TpsLin.append(time_endLin - time_startLin)
-    Y2 = np.linalg.norm(np.dot(A, X2) - B) / np.linalg.norm(B)
+    Y2 = np.linalg.norm(np.dot(A, X2) - B)
     ErreurLin.append(Y2)
 
     # LU
@@ -292,7 +293,7 @@ for n in range(100, 500, 100):
     X3 = ResolutionLU(L, U, B)
     time_endLU = time.time()
     TpsLU.append(time_endLU - time_startLU)
-    Y3 = np.linalg.norm(np.dot(A, X3) - B) / np.linalg.norm(B)
+    Y3 = np.linalg.norm(np.dot(A, X3) - B)
     ErreurLU.append(Y3)
 
     # Pivot Partiel
@@ -301,7 +302,7 @@ for n in range(100, 500, 100):
     X4 = GaussChoixPivotPartiel(A, B)
     time_endPP = time.time()
     TpsPP.append(time_endPP - time_startPP)
-    Y4 = np.linalg.norm(np.dot(A, X4) - B) / np.linalg.norm(B)
+    Y4 = np.linalg.norm(np.dot(A, X4) - B)
     ErreurPP.append(Y4)
 
     # Pivot Total
@@ -310,7 +311,7 @@ for n in range(100, 500, 100):
     X5 = GaussChoixPivotTotal(A, B)
     time_endPT = time.time()
     TpsPT.append(time_endPT - time_startPT)
-    Y5 = np.linalg.norm(np.dot(A, X5) - B) / np.linalg.norm(B)
+    Y5 = np.linalg.norm(np.dot(A, X5) - B)
     ErreurPT.append(Y5)
 
     # Taille de la matrice
@@ -339,7 +340,6 @@ plt.plot(length, ErreurG, label="Gauss")
 plt.plot(length, ErreurLU, label="LU")
 plt.plot(length, ErreurPP, label="Pivot Partiel")
 plt.plot(length, ErreurPT, label="Pivot Total")
-plt.yscale(u'log')
 plt.xlabel("Taille de la matrice(n)")
 plt.ylabel("Erreur relative")
 plt.grid()
