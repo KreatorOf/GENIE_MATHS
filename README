@@ -1,0 +1,18 @@
+Nom du dossier
+GENIE_MATHS 
+
+Nom des participants 
+Cadet Matthias
+Herman Marilyn
+Lefez Alexis
+
+chemin des fichiers :
+├──GENIE_MATHS
+│   ├── TP1.py
+│   ├── readme.txt
+
+Dans le cadre du premier TP de Génie Mathématique de deuxième année, le fichier python TP1.py présente le programme attendu exploitant
+la méthode de Gauss pour la résolution de systèmes linéaires. Le projet a été réalisé du 28/01/2021 au 18/03/2021.
+Le code du fichier TP1.py se structure en deux parties : l'une comportant les bibilothèques importées, l'autre les fonctions créées pour répondre aux attentes du sujet.
+
+Afin de lancer le code et tester sa validité, il est nécessaire d'avoir préalablement importé les bibiliothèques numpy, matplotlib et time à partir de l'executeur de commande. 
