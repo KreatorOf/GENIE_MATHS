@@ -83,6 +83,14 @@ def Gauss(A, B):
 
 
 def DecompositionLU(A):
+    """[summary]
+
+    Args:
+        A ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     n, m = np.shape(A)
     L = np.eye(n)
     U = A
@@ -102,6 +110,16 @@ def DecompositionLU(A):
 # QUESTION 2
 
 def ResolutionLU(L, U, B):
+    """[summary]
+
+    Args:
+        L ([type]): [description]
+        U ([type]): [description]
+        B ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     Aaug = np.concatenate((L, B), axis=1)
     n, m = np.shape(Aaug)
     Y = np.reshape(ResolutionSystTriInferieur(Aaug), (n, 1))
@@ -111,6 +129,15 @@ def ResolutionLU(L, U, B):
 
 
 def GaussChoixPivotPartiel(A, B):
+    """[summary]
+
+    Args:
+        A ([type]): [description]
+        B ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     Aaug = np.concatenate((A, B), axis=1)
     n, m = np.shape(Aaug)
 
@@ -132,6 +159,14 @@ def GaussChoixPivotPartiel(A, B):
 
 
 def ReductionGaussChoixPivotTotal(Aaug):
+    """[summary]
+
+    Args:
+        Aaug ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     # Aaug = np.concatenate((A,B), axis=1)
     n, m = np.shape(Aaug)
 
@@ -152,6 +187,15 @@ def ReductionGaussChoixPivotTotal(Aaug):
 
 
 def GaussChoixPivotTotal(A, B):
+    """[summary]
+
+    Args:
+        A ([type]): [description]
+        B ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     Aaug = np.concatenate((A, B), axis=1)
 
     Taug = ReductionGaussChoixPivotTotal(Aaug)
@@ -161,6 +205,14 @@ def GaussChoixPivotTotal(A, B):
 
 
 def Cholesky(A):
+    """[summary]
+
+    Args:
+        A ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     n, m = np.shape(A)
     L = np.zeros((n, m))
     for k in range(0, n):
@@ -180,6 +232,15 @@ def Cholesky(A):
 
 
 def ResolCholesky(A, B):
+    """[summary]
+
+    Args:
+        A ([type]): [description]
+        B ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     L = Cholesky(A)
     L_T = np.transpose(L)
 
@@ -201,6 +262,8 @@ def ResolCholesky(A, B):
 
 
 def graphes():
+    """[summary]
+    """
     TpsC = []
     TpsPT = []
     TpsLS = []
