@@ -34,7 +34,7 @@ class TestFunctionOption(unittest.TestCase):
         
         L = Cholesky.Cholesky(S)
         try:
-            (np.dot(L, np.transpose(L))==S).all()
+            (np.dot(L, np.transpose(L)) == S).all()
         except:
             print("La factorisation de Cholesky n'a pas fonctionné")
         
