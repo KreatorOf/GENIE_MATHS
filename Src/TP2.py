@@ -278,7 +278,7 @@ def graphes():
     ErreurLU = []
     length = []
 
-    for n in range(100, 300, 50):
+    for n in range(100, 500, 50):
         A = np.random.rand(n, n)
         B = np.random.rand(n, 1)
 
