@@ -1,7 +1,3 @@
-
-import sys
-sys.path.append(".")
-
 from Src import TP2
 import numpy as np
 import numpy.testing as npt   
@@ -9,7 +5,7 @@ import unittest
 
 class TestFunctionOption(unittest.TestCase):
     
-    def test_cholesky(self):
+    def test_Cholesky(self):
         A = np.array([[1,2,4], [2,8,4], [4,4,24]])
         L = TP2.Cholesky(A)
         L_machine = np.linalg.cholesky(A)
@@ -24,10 +20,8 @@ class TestFunctionOption(unittest.TestCase):
         npt.assert_array_equal(X, X_verif)
 
     
-    def test_cholesky_random3x3(self):
-        A = np.random.rand(3,3)
-        B = np.random.rand(3,1)
-        
+    def test_Cholesky_random3x3(self):
+        A = np.random.rand(3,3)        
         S = np.dot(A, np.transpose(A)) #Matrice symétrique définie positive
         
         L = TP2.Cholesky(S)

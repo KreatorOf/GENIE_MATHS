@@ -8,10 +8,11 @@ Date : 16 avril
 import numpy as np
 import matplotlib.pyplot as plt
 from math import *
+from numba import njit
 import time
 # -----------------------------------
 
-
+@njit
 def ResolutionSystTriSup(Taug):
     """
    Cette fonction renvoie la solution d’un système T X = B, où T est triangulaire supérieure. 
@@ -33,7 +34,6 @@ def ResolutionSystTriSup(Taug):
 
 
 def ResolutionSystTriInferieur(Taug):
-
     n, m = np.shape(Taug)
     Y = np.zeros(n)
 
@@ -83,14 +83,16 @@ def Gauss(A, B):
 
 
 def DecompositionLU(A):
-    """[summary]
+    """
+    Cette fonction renvoie la décomposition LU d’une matrice carrée A.
 
     Args:
-        A ([type]): [description]
+        A : Une matrice carrée
 
     Returns:
-        [type]: [description]
+        [Matrice]: décomposition LU de A
     """
+    
     n, m = np.shape(A)
     L = np.eye(n)
     U = A
@@ -110,15 +112,14 @@ def DecompositionLU(A):
 # QUESTION 2
 
 def ResolutionLU(L, U, B):
-    """[summary]
+    """
+    Cette fonction résoud AX = B avec la décomposition de A = LU fourni en argument.
 
-    Args:
-        L ([type]): [description]
-        U ([type]): [description]
-        B ([type]): [description]
-
-    Returns:
-        [type]: [description]
+    Argument: L: Une matrice triangulaire supérieure
+           U: Une matrice triangulaire supérieure
+           B: Un vecteur colonne
+           
+    Retourne: La solution de l'équation AX = B
     """
     Aaug = np.concatenate((L, B), axis=1)
     n, m = np.shape(Aaug)
@@ -129,14 +130,15 @@ def ResolutionLU(L, U, B):
 
 
 def GaussChoixPivotPartiel(A, B):
-    """[summary]
+    """
+    Cette fonction résoud l'équation AX = B avec le choix du pivot partiel. On utilise des échanges de lignes, pour que le pivot soit choisi de
+    plus grand module possible au sein de la colonne.
 
-    Args:
-        A ([type]): [description]
-        B ([type]): [description]
 
-    Returns:
-        [type]: [description]
+    Argument: A: Une matrice carrée
+            B: Une matrice colonne
+
+    Retourne: La solution sous la forme d'une matrice colonne
     """
     Aaug = np.concatenate((A, B), axis=1)
     n, m = np.shape(Aaug)
@@ -147,27 +149,14 @@ def GaussChoixPivotPartiel(A, B):
                 i_max = Aaug[i, :].copy()
                 Aaug[i, :] = Aaug[i+j, :]
                 Aaug[i+j, :] = i_max
-                # print(Aaug)
             for k in range(i+1, n):
                 g = Aaug[k, i]/Aaug[i, i]
                 Aaug[k, :] = Aaug[k, :] - g * Aaug[i, :]
-                # print(Aaug)
-    # print(Aaug)
     solution = ResolutionSystTriSup(Aaug)
-    # print(solution)
     return solution
 
 
 def ReductionGaussChoixPivotTotal(Aaug):
-    """[summary]
-
-    Args:
-        Aaug ([type]): [description]
-
-    Returns:
-        [type]: [description]
-    """
-    # Aaug = np.concatenate((A,B), axis=1)
     n, m = np.shape(Aaug)
 
     for i in range(n):
@@ -187,14 +176,13 @@ def ReductionGaussChoixPivotTotal(Aaug):
 
 
 def GaussChoixPivotTotal(A, B):
-    """[summary]
+    """
+    Cette fonction rend la solution d’un système AX = B avec la méthode de Gauss avec choix de pivot total.
 
-    Args:
-        A ([type]): [description]
-        B ([type]): [description]
+    Argument: A: Une matrice carrée
+            B: Un vecteur colonne
 
-    Returns:
-        [type]: [description]
+    Retourne: La solution du système AX = B
     """
     Aaug = np.concatenate((A, B), axis=1)
 
@@ -262,7 +250,10 @@ def ResolCholesky(A, B):
 
 
 def graphes():
-    """[summary]
+    """
+    Cette fonction affiche les graphiques de temps d'execution en fonction de la taille
+    de la matrice, des erreurs en fonction de la taille de la matrice et les graphiques
+    loglog (temps d'execution - taille de la matrice)
     """
     TpsC = []
     TpsPT = []
@@ -278,7 +269,7 @@ def graphes():
     ErreurLU = []
     length = []
 
-    for n in range(100, 500, 50):
+    for n in range(100, 1000, 50):
         A = np.random.rand(n, n)
         B = np.random.rand(n, 1)
 
