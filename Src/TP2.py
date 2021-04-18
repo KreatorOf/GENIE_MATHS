@@ -191,6 +191,11 @@ def GaussChoixPivotTotal(A, B):
 
     return solution
 
+######TP 2 Fonctions#####
+
+# DECOMPOSITION DE CHOLESKY
+
+#QUESTION 1
 
 def Cholesky(A):
     """[summary]
@@ -218,6 +223,9 @@ def Cholesky(A):
 
     return L
 
+# RESOLUTION DE SYSTEMES A L'AIDE DE LA DECOMPOSITION DE CHOLESKY
+
+#QUESTION 1
 
 def ResolCholesky(A, B):
     """[summary]
@@ -248,6 +256,7 @@ def ResolCholesky(A, B):
         X[j] = (Y[j] - S) / L_T[j, j]
     return X
 
+#EXPERIMENTATION DES METHODES
 
 def graphes():
     """
