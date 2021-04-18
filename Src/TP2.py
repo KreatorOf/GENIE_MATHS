@@ -12,6 +12,11 @@ from numba import njit
 import time
 # -----------------------------------
 
+# -----------------------------------------------------------------------------------------------------------
+#                                                        TP1 
+# -----------------------------------------------------------------------------------------------------------
+
+
 @njit
 def ResolutionSystTriSup(Taug):
     """
@@ -109,8 +114,6 @@ def DecompositionLU(A):
     return L, U
 
 
-# QUESTION 2
-
 def ResolutionLU(L, U, B):
     """
     Cette fonction résoud AX = B avec la décomposition de A = LU fourni en argument.
@@ -191,11 +194,9 @@ def GaussChoixPivotTotal(A, B):
 
     return solution
 
-######TP 2 Fonctions#####
-
-# DECOMPOSITION DE CHOLESKY
-
-#QUESTION 1
+# -----------------------------------------------------------------------------------------------------------
+#                                                        TP2 
+# -----------------------------------------------------------------------------------------------------------
 
 def Cholesky(A):
     """[summary]
@@ -223,9 +224,6 @@ def Cholesky(A):
 
     return L
 
-# RESOLUTION DE SYSTEMES A L'AIDE DE LA DECOMPOSITION DE CHOLESKY
-
-#QUESTION 1
 
 def ResolCholesky(A, B):
     """[summary]
@@ -256,7 +254,6 @@ def ResolCholesky(A, B):
         X[j] = (Y[j] - S) / L_T[j, j]
     return X
 
-#EXPERIMENTATION DES METHODES
 
 def graphes():
     """
@@ -283,7 +280,6 @@ def graphes():
         B = np.random.rand(n, 1)
 
         M = np.dot(A, np.transpose(A))
-        
 
         # CHOLESKY
 
