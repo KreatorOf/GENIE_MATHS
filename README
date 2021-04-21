@@ -7,8 +7,8 @@ Hermann Marilyn
 Lefez Alexis
 
 chemin des fichiers :
-├──GENIE_MATHS
-│   ├── TP1.py
+├──GENIE_MATHS/Src
+│   ├── TP1.py + TP2.py
 │   ├── readme.txt
 
 Dans le cadre du premier TP de Génie Mathématique de deuxième année, le fichier python TP1.py présente le programme attendu exploitant la méthode de Gauss pour la résolution de systèmes linéaires. Le projet a été réalisé du 28/01/2021 au 18/03/2021.
