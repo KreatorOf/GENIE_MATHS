@@ -12,6 +12,6 @@ chemin des fichiers :
 │   ├── readme.txt
 
 Dans le cadre du premier TP de Génie Mathématique de deuxième année, le fichier python TP1.py présente le programme attendu exploitant la méthode de Gauss pour la résolution de systèmes linéaires. Le projet a été réalisé du 28/01/2021 au 18/03/2021.
-Le code du fichier TP1.py se structure en deux parties : l'une comportant les bibilothèques importées, l'autre les fonctions créées pour répondre aux attentes du sujet.
+Le code du fichier TP1.py se structure en deux parties : l'une comportant les bibliothèques importées, l'autre les fonctions créées pour répondre aux attentes du sujet.
 
-Afin de lancer le code et tester sa validité, il est nécessaire d'avoir préalablement importé les bibiliothèques numpy, matplotlib et time à partir de l'executeur de commande. 
+Afin de lancer le code et tester sa validité, il est nécessaire d'avoir préalablement importé les bibliothèques numpy, matplotlib et time à partir de l'exécuteur de commande. 
